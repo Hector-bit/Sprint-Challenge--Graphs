@@ -2,6 +2,7 @@ from room import Room
 from player import Player
 from world import World
 from util import Queue
+from graphs import Graph
 
 import random
 from ast import literal_eval
@@ -29,8 +30,14 @@ player = Player(world.starting_room)
 # Fill this out with directions to walk
 # traversal_path = ['n', 'n']
 traversal_path = []
-q = Queue()
-
+"""First make the map into a graph with relationships
+Each graph node will have friends"""
+# Make the graph
+graph = Graph()
+print(player.current_room.id, 'current room id')
+print(player.current_room.get_exits(), 'current room exits')
+"""Second, like the social problem return the routes to
+each node"""
 
 
 # TRAVERSAL TEST
