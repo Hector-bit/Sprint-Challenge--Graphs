@@ -12,8 +12,8 @@ world = World()
 
 
 # You may uncomment the smaller graphs for development and testing purposes.
-map_file = "maps/test_line.txt"
-# map_file = "maps/test_cross.txt"
+# map_file = "maps/test_line.txt"
+map_file = "maps/test_cross.txt"
 # map_file = "maps/test_loop.txt"
 # map_file = "maps/test_loop_fork.txt"
 # map_file = "maps/main_maze.txt"
@@ -30,10 +30,44 @@ player = Player(world.starting_room)
 # Fill this out with directions to walk
 # traversal_path = ['n', 'n']
 traversal_path = []
+
 """First make the map into a graph with relationships
 Each graph node will have friends"""
+
 # Make the graph
 graph = Graph()
+
+# Make nodes of each room first
+q = Queue() # This queue will help traverse the array
+visited = {} # visited is to keep track if a node is made or not
+q.enqueue(world.starting_room) #kick off the queue by adding the starting room
+# while the queue is not empty..
+while q.size() > 0:
+    # dequeue a node
+    something = q.dequeue()
+    print(something.id, 'SIE')
+    # Check if this node has been made if it hasn't then...
+    if something.id not in visited:
+        # Use the id to make a new node
+        visited[something.id] = []
+        # Check if other rooms are available
+        print(player.current_room.get_exits(), 'FORIENA')
+        for other_room in player.current_room.get_exits():
+            player.travel(other_room)
+            q.enqueue(player.current_room)
+            print('CURRENTLY IN ', player.current_room)
+            # print(other_room)
+            # print(new_room, 'NEW ROOM')
+    else:
+        print(f'node of {something.id} has already been visited')
+print('visited', visited)
+
+
+# rooms is list of available exits of current room
+rooms = player.current_room.get_exits()
+print(rooms[0], 'ROOMS')
+if rooms is not None:
+    player.travel(player.current_room.get_exits())
 print(player.current_room.id, 'current room id')
 print(player.current_room.get_exits(), 'current room exits')
 """Second, like the social problem return the routes to
