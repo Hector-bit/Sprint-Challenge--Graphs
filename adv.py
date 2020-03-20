@@ -51,17 +51,19 @@ while q.size() > 0:
         # Use the id to make a new node
         visited[something.id] = []
         # Check if other rooms are available
-        print(player.current_room.get_exits(), 'FORIENA')
-        for other_room in player.current_room.get_exits():
-            player.travel(other_room)
+        print(len(visited), 'asdf')
+        while len(visited) != 4:
+            other_room = player.current_room.get_exits()
+            player.travel(str(other_room[random.randrange(len(other_room))]))
+            print(player.current_room)
             q.enqueue(player.current_room)
-            print('CURRENTLY IN ', player.current_room)
-            # print(other_room)
-            # print(new_room, 'NEW ROOM')
+            traversal_path.append(other_room)
+            print(other_room, 'OTHER ROOM  ')
     else:
         print(f'node of {something.id} has already been visited')
 print('visited', visited)
 
+print('YOUR TRAVERSEL PATH', traversal_path)
 
 # rooms is list of available exits of current room
 rooms = player.current_room.get_exits()
